@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VideoChat</title>
+    <style>
+        body {
+            
+
+
+            
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .video-container {
+            width: 640px;
+            height: 480px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .controls {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .controls button {
+            margin-right: 10px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .controls button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <link rel="stylesheet" href="cam2.html">
+</head>
+
+
+<body>
+
+    <div class="video-chat-container">
+        <div class="video-window" id="local-video">
+          <!-- Aquí se mostrará el video local -->
+        </div>
+        <div class="video-window" id="videoremoto">
+          <!-- Aquí se mostrará el video remoto -->
+        </div>
+        <div class="controls">
+          <button id="start-call-btn">Proximo</button>
+          <button id="end-call-btn">Ya ya mijo ya</button>
+        </div>
+      </div>
+      <script src="script.js"></script>
+      
+    <div class="video-container">
+        <video id="videolocal" autoplay></video>
+        <div class="controls">
+            <button id="muteButton">Mute</button>
+            <button id="unmuteButton">Unmute</button>
+            <button id="startButton">Start</button>
+            <button id="stopButton">Stop</button>
+        </div>
+    </div>
+    <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Chat</title>
+</head>
+
+<body>
+    <h1>YayamijoCAM</h1>
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Chat</title>
+</head>
+<body>
+    <h1>Video Chat</h1>
+    <video id="videolocal" autoplay></video>
+    <video id="videoremoto" autoplay></video>
+
+    <script>
+        const videolocal = document.getElementById('videolocal');
+        const videoremoto = document.getElementById('videoremoto');
+
+        // Obtener acceso a la cámara y el micrófono del usuario
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+            .then(stream => {
+                // Mostrar el video local en el elemento de video
+                videolocal.srcObject = stream;
+
+                // Iniciar conexión peer-to-peer
+                const peerConnection = new RTCPeerConnection();
+
+                // Agregar la corriente local al objeto de conexión peer
+                stream.getTracks().forEach(track => peerConnection.addTrack(track, stream));
+
+                // Escuchar eventos de llegada de nuevas conexiones
+                peerConnection.ontrack = (event) => {
+                    // Mostrar el video remoto en el elemento de video
+                    videoremoto.srcObject = event.streams[0];
+                };
+
+                // Establecer la descripción de la oferta
+                peerConnection.createOffer()
+                    .then(offer => peerConnection.setLocalDescription(offer))
+                    .then(() => {
+                        // Enviar la descripción de la oferta al otro peer (podría ser a través de un servidor de señalización)
+                        // En este ejemplo, estamos simulando la comunicación directa enviándola al peer remoto a través de una variable global `offer`
+                        const offer = peerConnection.localDescription;
+
+                        // Aquí iría el código para enviar la oferta al otro peer
+                    })
+                    .catch(error => console.error('Error creating offer:', error));
+            })
+            .catch(error => console.error('Error accessing media devices:', error));
+    </script>
+</body>
+</html>
+
+    <video id="videolocal" autoplay></video>
+    <video id="videoremoto" autoplay></video>
+
+    <script>
+   
+        // Obtener acceso a la cámara del usuario
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+            .then(stream => {
+                // Mostrar el video local
+                videolocal.srcObject = stream;
+
+                // Iniciar conexión peer-to-peer
+                const peerConnection = new RTCPeerConnection();
+                stream.getTracks().forEach(track => peerConnection.addTrack(track, stream));
+
+                // Escuchar eventos de llegada de nuevas conexiones
+                peerConnection.ontrack = (event) => {
+                    videoremoto.srcObject = event.streams[0];
+                };
+
+                // Establecer la descripción de la oferta
+                peerConnection.createOffer()
+                    .then(offer => peerConnection.setLocalDescription(offer))
+                    .then(() => {
+                        // Enviar la descripción de la oferta al otro peer (podría ser a través de un servidor de señalización)
+                        // En este ejemplo, estamos simulando la comunicación directa enviándola al peer remoto a través de un objeto
+                        // en una variable global `offer`
+                        const offer = peerConnection.localDescription;
+                        
+                        // Aquí iría el código para enviar la oferta al otro peer
+                    })
+                    .catch(error => console.error('Error creating offer:', error));
+            })
+            .catch(error => console.error('Error accessing media devices:', error));
+    </script>
+</body>
+</html>
+
+
+    <script>
+        // Get access to the camera and microphone
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+            .then(function(stream) {
+                var video = document.getElementById('videolocal');
+                video.srcObject = stream;
+                video.onloadedmetadata = function(e) {
+                    video.play();
+                };
+            })
+            .catch(function(err) {
+                console.log('Error: ' + err);
+            });
+    </script>
+    
+</body>
+</html>

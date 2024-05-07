@@ -95,7 +95,7 @@
         <div class="button-container">
             <button>Buscar Amigos</button>
             <div class="button-container">
-    <a href="videochat.html" class="button">Iniciar Videochat</a>
+    <a href="index.html" class="button">Iniciar Videochat</a>
 </div>
 
            <form action="logout.php" method="post">
